@@ -123,31 +123,38 @@ public class UserService {
 
 	public void update(User user) {
 
-	    log.info(new Object(){}.getClass().getEnclosingClass().getName() +
-	    " : " + new Object(){}.getClass().getEnclosingMethod().getName());
+		log.info(new Object() {
+		}.getClass().getEnclosingClass().getName() +
+				" : " + new Object() {
+				}.getClass().getEnclosingMethod().getName());
 
-	    Connection connection = null;
-	    try {
-	        // パスワード暗号化
-	        String encPassword = CipherUtil.encrypt(user.getPassword());
-	        user.setPassword(encPassword);
-
-	        connection = getConnection();
-	        new UserDao().update(connection, user);
-	        commit(connection);
-	    } catch (RuntimeException e) {
-	        rollback(connection);
-		  log.log(Level.SEVERE, new Object(){}.getClass().getEnclosingClass().getName() + " : " + e.toString(), e);
-	        throw e;
-	    } catch (Error e) {
-	        rollback(connection);
-		  log.log(Level.SEVERE, new Object(){}.getClass().getEnclosingClass().getName() + " : " + e.toString(), e);
-	        throw e;
-	    } finally {
-	        close(connection);
-	    }
+		Connection connection = null;
+		try {
+			if (user.getPassword() != null && !user.getPassword().trim().isEmpty()) {
+				//パスワードが入力されている場合のみ暗号化する
+				String encPassword = CipherUtil.encrypt(user.getPassword());
+				user.setPassword(encPassword);
+			} else {
+				// 未入力ならnullをセットして「更新しない」とDAOに伝える
+				user.setPassword(null);
+			}
+			// コネクションを確立して実行
+			connection = getConnection();
+			new UserDao().update(connection, user);
+			commit(connection);
+		} catch (RuntimeException e) {
+			rollback(connection);
+			log.log(Level.SEVERE, new Object() {
+			}.getClass().getEnclosingClass().getName() + " : " + e.toString(), e);
+			throw e;
+		} catch (Error e) {
+			rollback(connection);
+			log.log(Level.SEVERE, new Object() {
+			}.getClass().getEnclosingClass().getName() + " : " + e.toString(), e);
+			throw e;
+		} finally {
+			close(connection);
+		}
 	}
-
-
 
 }
