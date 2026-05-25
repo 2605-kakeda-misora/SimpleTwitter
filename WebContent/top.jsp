@@ -8,7 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>簡易Twitter</title>
- <link href="./css/style.css" rel="stylesheet" type="text/css">
+<link href="./css/style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 	<div class="main-contents">
@@ -63,8 +63,12 @@
 			<c:forEach items="${messages}" var="message">
 				<div class="message">
 					<div class="account-name">
-						<span class="account"><c:out value="${message.account}" /></span>
-						<span class="name"><c:out value="${message.name}" /></span>
+						<span class="account"> <a
+							href="./?user_id=<c:out value="${message.userId}"/> "> <c:out
+									value="${message.account}" />
+						</a>
+						</span>
+						 <span class="name"><c:out value="${message.name}" /></span>
 					</div>
 					<div class="text">
 						<c:out value="${message.text}" />
