@@ -136,9 +136,6 @@ public class UserService {
 				//パスワードが入力されている場合のみ暗号化する
 				String encPassword = CipherUtil.encrypt(user.getPassword());
 				user.setPassword(encPassword);
-			} else {
-				// 未入力ならnullをセットして「更新しない」とDAOに伝える
-				user.setPassword(null);
 			}
 			// コネクションを確立して実行
 			connection = getConnection();
