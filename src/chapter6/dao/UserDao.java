@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.apache.commons.lang.StringUtils;
+
 import chapter6.beans.User;
 import chapter6.exception.NoRowsUpdatedRuntimeException;
 import chapter6.exception.SQLRuntimeException;
@@ -190,7 +192,7 @@ public class UserDao {
 		PreparedStatement ps = null;
 		try {
 			// パスワードが null かどうかを判定
-			boolean isPasswordUpdate = (user.getPassword() != null);
+			boolean isPasswordUpdate = StringUtils.isNotBlank(user.getPassword());
 			StringBuilder sql = new StringBuilder();
 			sql.append("UPDATE users SET ");
 			sql.append("    account = ?, ");

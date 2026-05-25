@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.apache.commons.lang.StringUtils;
+
 import chapter6.beans.User;
 import chapter6.dao.UserDao;
 import chapter6.logging.InitApplication;
@@ -130,7 +132,7 @@ public class UserService {
 
 		Connection connection = null;
 		try {
-			if (user.getPassword() != null && !user.getPassword().trim().isEmpty()) {
+			if (!StringUtils.isBlank(user.getPassword())) {
 				//パスワードが入力されている場合のみ暗号化する
 				String encPassword = CipherUtil.encrypt(user.getPassword());
 				user.setPassword(encPassword);
