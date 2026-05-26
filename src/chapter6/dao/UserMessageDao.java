@@ -52,13 +52,22 @@ public class UserMessageDao {
 			sql.append("FROM messages ");
 			sql.append("INNER JOIN users ");
 			sql.append("ON messages.user_id = users.id ");
-			sql.append("ON messages.user_id = users.id ");
-			sql.append("WHERE messages.user_id = ? ");
-			sql.append("ORDER BY created_date DESC limit ?");
 
-			ps = connection.prepareStatement(sql.toString());
-			ps.setObject(1, id);
-			ps.setInt(2, lIMIT_NUM);
+			if (id != null) {
+			    // 【特定のユーザー表示】
+			    sql.append("WHERE messages.user_id = ? ");
+			    sql.append("ORDER BY created_date DESC limit ?");
+
+			    ps = connection.prepareStatement(sql.toString());
+			    ps.setObject(1, id);
+			    ps.setInt(2, lIMIT_NUM);
+			}else {
+				// 【一斉表示】
+			    sql.append("ORDER BY created_date DESC limit ?");
+
+			    ps = connection.prepareStatement(sql.toString());
+			    ps.setInt(1, lIMIT_NUM);
+			}
 
 			ResultSet rs = ps.executeQuery();
 
