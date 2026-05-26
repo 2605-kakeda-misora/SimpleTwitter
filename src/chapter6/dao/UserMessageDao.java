@@ -57,16 +57,10 @@ public class UserMessageDao {
 				// 【特定のユーザー表示】
 				sql.append("WHERE messages.user_id = ? ");
 			}
-			sql.append("ORDER BY created_date DESC limit ?");
+			sql.append("ORDER BY created_date DESC limit " + lIMIT_NUM);
 			ps = connection.prepareStatement(sql.toString());
-
-			// 【特定のユーザー表示】
 			if (id != null) {
 				ps.setObject(1, id);
-				ps.setInt(2, lIMIT_NUM);
-			} else {
-				//【一斉表示】
-				ps.setInt(1, lIMIT_NUM);
 			}
 
 			ResultSet rs = ps.executeQuery();
