@@ -54,26 +54,28 @@ public class UserMessageDao {
 			sql.append("ON messages.user_id = users.id ");
 
 			if (id != null) {
-			    // 【特定のユーザー表示】
-			    sql.append("WHERE messages.user_id = ? ");
-			    sql.append("ORDER BY created_date DESC limit ?");
+				// 【特定のユーザー表示】
+				sql.append("WHERE messages.user_id = ? ");
+			}
+			sql.append("ORDER BY created_date DESC limit ?");
+			ps = connection.prepareStatement(sql.toString());
 
-			    ps = connection.prepareStatement(sql.toString());
-			    ps.setObject(1, id);
-			    ps.setInt(2, lIMIT_NUM);
-			}else {
-				// 【一斉表示】
-			    sql.append("ORDER BY created_date DESC limit ?");
-
-			    ps = connection.prepareStatement(sql.toString());
-			    ps.setInt(1, lIMIT_NUM);
+			// 【特定のユーザー表示】
+			if (id != null) {
+				ps.setObject(1, id);
+				ps.setInt(2, lIMIT_NUM);
+			} else {
+				//【一斉表示】
+				ps.setInt(1, lIMIT_NUM);
 			}
 
 			ResultSet rs = ps.executeQuery();
 
 			List<UserMessage> messages = toUserMessages(rs);
 			return messages;
-		} catch (SQLException e) {
+		} catch (
+
+		SQLException e) {
 			log.log(Level.SEVERE, new Object() {
 			}.getClass().getEnclosingClass().getName() + " : " + e.toString(), e);
 			throw new SQLRuntimeException(e);
