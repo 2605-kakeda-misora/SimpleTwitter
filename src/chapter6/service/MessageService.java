@@ -103,4 +103,42 @@ public class MessageService {
 			close(connection);
 		}
 	}
+
+	/*
+	* deleteの引数にMessage型のidを追加
+	*/
+
+	public void delete(Message id) {
+		log.info(new Object() {
+		}.getClass().getEnclosingClass().getName() +
+				" : " + new Object() {
+				}.getClass().getEnclosingMethod().getName());
+
+		Connection connection = null;
+		try {
+			// データベース接続の開始
+			connection = getConnection();
+
+			// MessageDaoを呼び出して削除
+			MessageDao messageDao = new MessageDao();
+			messageDao.delete(connection, id);
+
+			// 処理の確定
+			commit(connection);
+
+		} catch (RuntimeException e) {
+			rollback(connection);
+			log.log(Level.SEVERE, new Object() {
+			}.getClass().getEnclosingClass().getName() + " : " + e.toString(), e);
+			throw e;
+		} catch (Error e) {
+			rollback(connection);
+			log.log(Level.SEVERE, new Object() {
+			}.getClass().getEnclosingClass().getName() + " : " + e.toString(), e);
+			throw e;
+		} finally {
+			close(connection);
+		}
+
+	}
 }

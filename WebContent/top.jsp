@@ -55,7 +55,8 @@
 				<form action="message" method="post">
 					いま、どうしてる？<br />
 					<textarea name="text" cols="100" rows="5" class="tweet-box"></textarea>
-					<br /> <input type="submit" value="つぶやく">（140文字まで）
+					<br />
+					<input type="submit" value="つぶやく">（140文字まで）
 				</form>
 			</c:if>
 		</div>
@@ -76,6 +77,22 @@
 					<div class="date">
 						<fmt:formatDate value="${message.createdDate}"
 							pattern="yyyy/MM/dd HH:mm:ss" />
+					</div>
+					<div class="edit-area">
+						<c:if test="${not empty loginUser and message.userId == loginUser.id}">
+							<form action="edit" method="post">
+								<input type="hidden" name="id" value="${message.id}">
+								<button type="submit">編集</button>
+							</form>
+						</c:if>
+					</div>
+					<div class="delete-area">
+						<c:if test="${not empty loginUser and message.userId == loginUser.id}">
+							<form action="deleteMessage" method="post">
+								<input type="hidden" name="id" value="${message.id}">
+								<button type="submit">削除</button>
+							</form>
+						</c:if>
 					</div>
 				</div>
 			</c:forEach>
