@@ -55,8 +55,7 @@
 				<form action="message" method="post">
 					いま、どうしてる？<br />
 					<textarea name="text" cols="100" rows="5" class="tweet-box"></textarea>
-					<br />
-					<input type="submit" value="つぶやく">（140文字まで）
+					<br /> <input type="submit" value="つぶやく">（140文字まで）
 				</form>
 			</c:if>
 		</div>
@@ -64,12 +63,11 @@
 			<c:forEach items="${messages}" var="message">
 				<div class="message">
 					<div class="account-name">
-						<span class="account">
-						<a href="./?user_id=<c:out value="${message.userId}"/> ">
-							<c:out value="${message.account}" />
+						<span class="account"> <a
+							href="./?user_id=<c:out value="${message.userId}"/> "> <c:out
+									value="${message.account}" />
 						</a>
-						</span>
-						<span class="name"><c:out value="${message.name}" /></span>
+						</span> <span class="name"><c:out value="${message.name}" /></span>
 					</div>
 					<div class="text">
 						<c:out value="${message.text}" />
@@ -79,15 +77,17 @@
 							pattern="yyyy/MM/dd HH:mm:ss" />
 					</div>
 					<div class="edit-area">
-						<c:if test="${not empty loginUser and message.userId == loginUser.id}">
-							<form action="edit" method="post">
+						<c:if
+							test="${not empty loginUser and message.userId == loginUser.id}">
+							<form action="edit" method="get">
 								<input type="hidden" name="id" value="${message.id}">
 								<button type="submit">編集</button>
 							</form>
 						</c:if>
 					</div>
 					<div class="delete-area">
-						<c:if test="${not empty loginUser and message.userId == loginUser.id}">
+						<c:if
+							test="${not empty loginUser and message.userId == loginUser.id}">
 							<form action="deleteMessage" method="post">
 								<input type="hidden" name="id" value="${message.id}">
 								<button type="submit">削除</button>

@@ -48,6 +48,10 @@ public class UserMessage implements Serializable {
 		this.createdDate = createdDate;
 	}
 
+	public String[] getSplitedText() {
+		return text.split("\n");
+	}
+
     // getter/setterは省略されているので、自分で記述しましょう。
 }
 
