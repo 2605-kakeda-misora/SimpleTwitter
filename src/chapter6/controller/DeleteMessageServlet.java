@@ -42,19 +42,12 @@ public class DeleteMessageServlet extends HttpServlet {
 		// JSPから送られてきたつぶやきIDを受け取る
 		String id = request.getParameter("id");
 
-		// IDが正常に取得できたら削除を実行する
-		if (id != null && !id.isEmpty()) {
+		Message messageId = new Message();
+		//箱用意せず型変換で渡す
+		messageId.setId(Integer.parseInt(id));
 
-			Message messageId = new Message();
-
-			// 文字列のIDを、MessageServiceが求めている型（Message型オブジェクト）に合わせるため、
-			// 一度数値(int)に変換してからmessageIdオブジェクトにセットします
-			int parsedId = Integer.parseInt(id);
-			messageId.setId(parsedId);
-
-			//  MessageServiceの削除メソッドを呼び出す
-			new MessageService().delete(messageId);
-		}
+		//  MessageServiceの削除メソッドを呼び出す
+		new MessageService().delete(messageId);
 
 		// ホーム画面にリダイレクト
 		response.sendRedirect("./");

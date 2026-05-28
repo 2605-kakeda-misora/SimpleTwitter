@@ -103,8 +103,7 @@ public class MessageService {
 			// データベース接続の開始
 			connection = getConnection();
 			// MessageDaoを呼び出して削除
-			MessageDao messageDao = new MessageDao();
-			messageDao.delete(connection, id);
+			new MessageDao().delete(connection, id);
 			// 処理の確定
 			commit(connection);
 		} catch (RuntimeException e) {
@@ -156,8 +155,7 @@ public class MessageService {
 		Connection connection = null;
 		try {
 			connection = getConnection();
-			MessageDao messageDao = new MessageDao();
-			messageDao.update(connection, id);
+			new MessageDao().update(connection, id);
 			commit(connection);
 		} catch (RuntimeException e) {
 			rollback(connection);
