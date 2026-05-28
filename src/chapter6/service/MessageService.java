@@ -69,25 +69,14 @@ public class MessageService {
 		Connection connection = null;
 		try {
 			connection = getConnection();
-			/*
-			* idをnullで初期化
-			* ServletからuserIdの値が渡ってきていたら
-			* 整数型に型変換し、idに代入
-			*/
+			//idをnullで初期化
 			Integer id = null;
 			if (!StringUtils.isEmpty(userId)) {
+				//ServletからuserIdの値が渡ってきていたら整数型に型変換し、idに代入
 				id = Integer.parseInt(userId);
 			}
-
-			/*
-			* messageDao.selectに引数としてInteger型のidを追加
-			* idがnullだったら全件取得する
-			* idがnull以外だったら、その値に対応するユーザーIDの投稿を取得する
-			*/
 			List<UserMessage> messages = new UserMessageDao().select(connection, id, LIMIT_NUM);
-
 			commit(connection);
-
 			return messages;
 		} catch (RuntimeException e) {
 			rollback(connection);
@@ -104,28 +93,20 @@ public class MessageService {
 		}
 	}
 
-	/*
-	* deleteの引数にMessage型のidを追加
-	*/
-
 	public void delete(Message id) {
 		log.info(new Object() {
 		}.getClass().getEnclosingClass().getName() +
 				" : " + new Object() {
 				}.getClass().getEnclosingMethod().getName());
-
 		Connection connection = null;
 		try {
 			// データベース接続の開始
 			connection = getConnection();
-
 			// MessageDaoを呼び出して削除
 			MessageDao messageDao = new MessageDao();
 			messageDao.delete(connection, id);
-
 			// 処理の確定
 			commit(connection);
-
 		} catch (RuntimeException e) {
 			rollback(connection);
 			log.log(Level.SEVERE, new Object() {
@@ -141,22 +122,17 @@ public class MessageService {
 		}
 	}
 
-
 	public Message select(Message id) {
 		log.info(new Object() {
 		}.getClass().getEnclosingClass().getName() +
 				" : " + new Object() {
 				}.getClass().getEnclosingMethod().getName());
-
 		Connection connection = null;
 		try {
 			connection = getConnection();
-
 			Message message = new MessageDao().select(connection, id);
-
 			commit(connection);
 			return message;
-
 		} catch (RuntimeException e) {
 			rollback(connection);
 			log.log(Level.SEVERE, new Object() {
@@ -177,17 +153,12 @@ public class MessageService {
 		}.getClass().getEnclosingClass().getName() +
 				" : " + new Object() {
 				}.getClass().getEnclosingMethod().getName());
-
 		Connection connection = null;
 		try {
 			connection = getConnection();
-
-
 			MessageDao messageDao = new MessageDao();
 			messageDao.update(connection, id);
 			commit(connection);
-
-
 		} catch (RuntimeException e) {
 			rollback(connection);
 			log.log(Level.SEVERE, new Object() {

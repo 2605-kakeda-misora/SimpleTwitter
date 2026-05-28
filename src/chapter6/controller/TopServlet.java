@@ -48,11 +48,8 @@ public class TopServlet extends HttpServlet {
 		if (user != null) {
 			isShowMessageForm = true;
 		}
-		/*
-		 * String型のuser_idの値をrequest.getParameter("user_id")で
-		 * JSPから受け取るように設定
-		 * MessageServiceのselectに引数としてString型のuser_idを追加
-		 */
+		// String型のuser_idの値をrequest.getParameter("user_id")で JSPから受け取るように設定
+		//MessageServiceのselectに引数としてString型のuser_idを追加
 		String userId = request.getParameter("user_id");
 		List<UserMessage> messages = new MessageService().select(userId);
 

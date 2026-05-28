@@ -70,7 +70,8 @@
 						</span> <span class="name"><c:out value="${message.name}" /></span>
 					</div>
 					<div class="text">
-						<c:out value="${message.text}" />
+						<%--空白入れたくない場合はpreタグを一行にする --%>
+						<pre><c:out value="${message.text}" /></pre>
 					</div>
 					<div class="date">
 						<fmt:formatDate value="${message.createdDate}"
