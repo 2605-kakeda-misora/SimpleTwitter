@@ -65,7 +65,7 @@ public class MessageDao {
 			close(ps);
 		}
 	}
-
+	//削除用
 	public void delete(Connection connection, Message id) {
 		log.info(new Object() {
 		}.getClass().getEnclosingClass().getName() +
@@ -98,7 +98,7 @@ public class MessageDao {
 		}
 
 	}
-
+	//更新用のつぶやき見つける用
 	public Message select(Connection connection, Message id) {
 		log.info(new Object() {
 		}.getClass().getEnclosingClass().getName() +
@@ -147,7 +147,7 @@ public class MessageDao {
 			}
 		}
 	}
-
+	//編集からつぶやき更新用
 	public void update(Connection connection, Message id) {
 
 		log.info(new Object() {
