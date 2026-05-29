@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import chapter6.beans.Message;
 import chapter6.logging.InitApplication;
 import chapter6.service.MessageService;
 
@@ -42,12 +41,8 @@ public class DeleteMessageServlet extends HttpServlet {
 		// JSPから送られてきたつぶやきIDを受け取る
 		String id = request.getParameter("id");
 
-		Message messageId = new Message();
 		//箱用意せず型変換で渡す
-		messageId.setId(Integer.parseInt(id));
-
-		//  MessageServiceの削除メソッドを呼び出す
-		new MessageService().delete(messageId);
+		new MessageService().delete(Integer.parseInt(id));
 
 		// ホーム画面にリダイレクト
 		response.sendRedirect("./");

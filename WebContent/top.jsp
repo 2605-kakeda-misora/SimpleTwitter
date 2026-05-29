@@ -77,7 +77,7 @@
 						<fmt:formatDate value="${message.createdDate}"
 							pattern="yyyy/MM/dd HH:mm:ss" />
 					</div>
-					<c:if test="${not empty loginUser}">
+					<c:if test="${not empty loginUser and loginUser.id == message.userId}">
 						<form action="edit" method="get">
 							<input type="hidden" name="id" value="${message.id}">
 							<button type="submit">編集</button>

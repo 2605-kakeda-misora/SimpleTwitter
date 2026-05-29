@@ -93,7 +93,7 @@ public class MessageService {
 		}
 	}
 
-	public void delete(Message id) {
+	public void delete(int id) {
 		log.info(new Object() {
 		}.getClass().getEnclosingClass().getName() +
 				" : " + new Object() {
@@ -103,7 +103,9 @@ public class MessageService {
 			// データベース接続の開始
 			connection = getConnection();
 			// MessageDaoを呼び出して削除
-			new MessageDao().delete(connection, id);
+			Message message = new Message();
+			message.setId(id);
+			new MessageDao().delete(connection, message);
 			// 処理の確定
 			commit(connection);
 		} catch (RuntimeException e) {
@@ -121,7 +123,7 @@ public class MessageService {
 		}
 	}
 
-	public Message select(Message id) {
+	public Message select(int id) {
 		log.info(new Object() {
 		}.getClass().getEnclosingClass().getName() +
 				" : " + new Object() {
@@ -129,9 +131,11 @@ public class MessageService {
 		Connection connection = null;
 		try {
 			connection = getConnection();
-			Message message = new MessageDao().select(connection, id);
+			Message message = new Message();
+			message.setId(id);
+			Message resultMessage = new MessageDao().select(connection, message);
 			commit(connection);
-			return message;
+			return resultMessage;
 		} catch (RuntimeException e) {
 			rollback(connection);
 			log.log(Level.SEVERE, new Object() {

@@ -148,7 +148,7 @@ public class MessageDao {
 		}
 	}
 	//編集からつぶやき更新用
-	public void update(Connection connection, Message id) {
+	public void update(Connection connection, Message message) {
 
 		log.info(new Object() {
 		}.getClass().getEnclosingClass().getName() +
@@ -165,9 +165,10 @@ public class MessageDao {
 
 			ps = connection.prepareStatement(sql.toString());
 
-			// 引数で届いた「Message id」オブジェクトから中身を取り出してSQLにセット
-			ps.setString(1, id.getText()); // 新しく入力されたテキストをセット
-			ps.setInt(2, id.getId()); // 編集したいつぶやきのIDをセット
+			int index = 1;
+			// 引数で届いた「Message message」オブジェクトから中身を取り出してSQLにセット
+			ps.setString(index++, message.getText());  // 新しく入力されたテキストをセット
+			ps.setInt(index++, message.getId());  // 編集したいつぶやきのIDをセット
 
 			// SQLを実行
 			ps.executeUpdate();

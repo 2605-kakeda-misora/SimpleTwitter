@@ -38,11 +38,9 @@
 		<c:remove var="errorMessages" scope="session" />
 	</c:if>
 	<form action="edit" method="post">
-		<pre>
+
 		<input type="hidden" name="id" value="${editMessage.id}">
-		<textarea name="text" cols="100" rows="5" class="tweet-box"><c:out
-					value="${editMessage.text}" /></textarea>
-				</pre>
+		<pre><textarea name="text" cols="100" rows="5" class="tweet-box"><c:out value="${editMessage.text}" /></textarea></pre>
 		<br /> <input type="submit" value="更新">（140文字まで）
 	</form>
 	<a href="./">戻る</a>

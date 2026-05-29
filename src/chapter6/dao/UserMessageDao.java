@@ -45,7 +45,7 @@ public class UserMessageDao {
 			sql.append("SELECT ");
 			sql.append("    messages.id as id, ");
 			sql.append("    messages.text as text, ");
-			sql.append("    messages.user_id as user_id, ");
+			sql.append("    messages.user_id as userid, ");
 			sql.append("    users.account as account, ");
 			sql.append("    users.name as name, ");
 			sql.append("    messages.created_date as created_date ");
@@ -91,7 +91,7 @@ public class UserMessageDao {
 				UserMessage message = new UserMessage();
 				message.setId(rs.getInt("id"));
 				message.setText(rs.getString("text"));
-				message.setUserId(rs.getInt("user_id"));
+				message.setUserId(rs.getInt("userid"));
 				message.setAccount(rs.getString("account"));
 				message.setName(rs.getString("name"));
 				message.setCreatedDate(rs.getTimestamp("created_date"));
